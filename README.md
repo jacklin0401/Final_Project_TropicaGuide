@@ -1,5 +1,10 @@
 # 🌴 TropicaGuide – Collaborative Travel Planner
 
+## Team Members
+Name         Student Id       Role
+Caira Major  002681888        UI / Flutter + Testing / Docs
+Jack Lin     002703493        Firebase + Backend + Testing / Docs
+
 ## 📌 Project Overview
 TropicaGuide is a real-time collaborative travel planning mobile application that helps groups design, organize, and optimize trip itineraries together.
 
