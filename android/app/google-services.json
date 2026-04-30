@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "482429010593",
+    "project_id": "tropicaguide-f9eac",
+    "storage_bucket": "tropicaguide-f9eac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482429010593:android:b571c611cfe1f9effa26e0",
+        "android_client_info": {
+          "package_name": "com.example.tropicaguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkiGYjy0I2I1HmATpPlwZkLqDzUAuWl5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
