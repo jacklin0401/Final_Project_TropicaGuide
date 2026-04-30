@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'notification_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final NotificationService _notificationService = NotificationService();
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
@@ -24,13 +26,14 @@ class AuthService {
     if (user != null) {
       await user.updateDisplayName(fullName);
 
-      
       await _db.collection('users').doc(user.uid).set({
         'uid': user.uid,
         'fullName': fullName,
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
       });
+
+      await _notificationService.initialize(user.uid);
     }
 
     return user;
@@ -41,7 +44,14 @@ class AuthService {
       email: email,
       password: password,
     );
-    return result.user;
+
+    final user = result.user;
+
+    if (user != null) {
+      await _notificationService.initialize(user.uid);
+    }
+
+    return user;
   }
 
   Future<void> signOut() async {
