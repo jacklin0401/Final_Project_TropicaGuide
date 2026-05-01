@@ -39,7 +39,11 @@ class FirestoreService {
         .map((snap) => snap.docs.map((doc) => Activity.fromDoc(doc)).toList());
   }
 
-  Future<void> reorderActivity(String tripId, String activityId, double newSortOrder) async {
+  Future<void> reorderActivity(
+    String tripId,
+    String activityId,
+    double newSortOrder,
+  ) async {
     await _db
         .collection('trips')
         .doc(tripId)
@@ -57,7 +61,11 @@ class FirestoreService {
         .add(item.toMap());
   }
 
-  Future<void> checkOffItem(String tripId, String itemId, String userId) async {
+  Future<void> checkOffItem(
+    String tripId,
+    String itemId,
+    String userId,
+  ) async {
     final ref = _db
         .collection('trips')
         .doc(tripId)
@@ -66,9 +74,20 @@ class FirestoreService {
 
     await _db.runTransaction((transaction) async {
       final snapshot = await transaction.get(ref);
-      if (!snapshot.exists) throw Exception('Item not found');
-      if (snapshot.data()!['checkedBy'] != null) return;
+
+      if (!snapshot.exists) {
+        throw Exception('Item not found');
+      }
+
+      final data = snapshot.data();
+      final checkedBy = data?['checkedBy'];
+
+      if (checkedBy != null && checkedBy.toString().isNotEmpty) {
+        return;
+      }
+
       transaction.update(ref, {
+        'isChecked': true,
         'checkedBy': userId,
         'checkedAt': FieldValue.serverTimestamp(),
       });
