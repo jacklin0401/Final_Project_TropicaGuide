@@ -38,7 +38,7 @@ class AppTheme {
         ),
       ),
       cardColor: surface,
-      cardTheme: const CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         margin: EdgeInsets.zero,
       ),
